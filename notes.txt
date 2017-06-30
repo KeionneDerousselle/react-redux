@@ -1,0 +1,73 @@
+in redux, why can't you use the strategy pattern instead of a huge switch statement? Like can there be a list of classes that have a can handle method
+can handle will return true if a reducer can handle an action type? and then a handle method that returns a new state?
+wouldn't that allow for the eay removal and addition of new action types?
+
+Action Creators
+  - take in some data and return an action
+  - action type is required
+  - the rest of the data is up to you, but must be serializable into json
+  - spot where you dispacth the action doesn't need to know app creator structure
+
+
+Data Store
+  - single Store: makes application easier to manage and understand
+  - pass the createStore function to your reducer function
+  - the store simply stores data
+  - does not contain actions and logic to manipulate the store
+  - store can dispatch an action, subscribe to a listener return its current state, and replace a reducer
+  - replacing a reducer supports hot reloading
+  - the only way you can change the store is by dispatching an action
+  - store.dispatch(action)
+  - store.subscribe(listener)
+  - store.getState()
+  - replaceReducer(nextReducer)
+
+Reducers
+  - handle state changes
+  - takes state and an action and returns a new state
+  - must be pure function, calling it with the same arguments always produces that same value
+  - In a reducer, you must never
+    - mutate arguments,
+    - perform side effects (like API calls and routing transistions)
+    - call non-pure functions
+
+
+Immutability
+  - to change state, return a new object
+  - immutable already: number, string, boolean, undefined, null
+  - mutable: objects, arrays, functions
+  - immutable state improves performance
+  - Object.assign
+  - Why Immutability?
+    - Clarity
+      - Who changed that state?
+    - performance
+      - when state is mutable, you have to do an expensive operation to check if every property on an object has changed
+      - when state is immutable, you can simply do a reference comparison to see if state has changed (way more efficient)
+    - Amazing debugging
+      - time travel debugging?
+        - you can go back through history and see each state change as it occurred, you can also undo specific state changes
+        - you can turn off individual actions that occurred so you can see how state would be if that action had never occurred
+        - you can play back all of your interactions and even select the speed at which it plays back
+
+  - How to enforce immutability?
+    - redux-immutable-state-invariant
+    - immutable.js
+
+
+provider
+  - react-redux's way to pass the store into every component in your app, using react's context (an experimental feature of react)
+
+connect
+  - react-redux's way to connect your app to the store
+
+mapStateToProps
+  - set a subset of redux's store as the props value on your component
+
+map
+
+Reselect
+  - a library that increases performance
+  - will only call functions if they haven't been called with the same parameters
+  - if it's already been called, then it will just return the 'memoized' results
+  - caching for functions
