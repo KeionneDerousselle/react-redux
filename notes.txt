@@ -64,7 +64,17 @@ connect
 mapStateToProps
   - set a subset of redux's store as the props value on your component
 
-map
+mapDispatchToProps
+  - a set of actions that you want to expose on your component
+  - 3 ways to handle mapDispatchToProps
+    - omit the function (the dispatch funciton will be attaches to your container component and you can hand it an action creator)
+      - use dispatch directly
+      - Two downsides
+        - more boilerplate
+        - redux concerns in child components
+    - manually wrap dispatch calls withing the mapDispatchToProps function
+    - use bindActionCreators
+      - a convenience function that wraps your action creators in dispatch calls for you
 
 Reselect
   - a library that increases performance
